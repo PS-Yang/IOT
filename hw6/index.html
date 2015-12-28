@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+	<title>chart</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+</head>
+<body>
+	  <div id="map"></div>
+    <script>
+
+var map;
+//var location2 = ['台中一中','台中女中','中興大學'];
+function initMap() {
+	//var location ={lat: 24.122106, lng: 120.6763215};
+  	map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8 //放大倍率
+  });
+
+  	var geocoder = new google.maps.Geocoder();
+    getlocation(map);
+  }
+  function MygeocodeAddress(geocoder, resultsMap,address) {
+ // var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        title: address,//標題
+        animation: google.maps.Animation.DROP,
+        position: results[0].geometry.location
+      });
+      marker.addListener('click', function() {
+        //window.open('chart.html?'+this.getTitle());
+        window.open('chart.html?'+this.title);
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+
+  });
+}
+ 	 function getlocation(map){
+    $.ajax({
+      url:"database.php",
+      data:"action=location&location",
+      dataType:"json",
+      success: function(response)
+      {
+        var geocoder = new google.maps.Geocoder();
+       //for (var i = 0; i < 11; i++) 
+        for (var i = 0; i < response.length; i++) 
+        {
+            MygeocodeAddress(geocoder, map,response[i].location);
+        }
+      }
+    });
+  }
+ 
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDqn5egQw4iDki4HFg8MHZJPdPlObpqZQ&callback=initMap"
+        async defer></script>
+</body>
+</html>

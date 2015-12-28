@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="UTF-8" http-equiv="refresh" content="5">
+
+	<title>Location Highcharts</title>
+
+		<!-- jQuery css and js -->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<!--include the highcharts library-->
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+
+		
+
+	<script language="javascript">
+
+	$(function () {
+		var location = window.location.href.split("?")[1];
+		console.log(location);
+		$.ajax({									  
+			url: 'database.php',				  //the script to call to get data		  
+			data:'action=data&location='+location,
+			//data: {action:"data", location:""+location},						//you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
+			dataType: 'json',				//data format	  
+			success: function(data)		  //on recieve of reply
+			{
+                var time = [];
+				var val = [];
+				console.log(data);
+				for (var i = data.length, len = data.length; i >0; i--)
+				//for(var i=data.length-10;i<data.length;i++)
+				{
+                    
+                    time.push(data[len-i].time);
+                    photocellvalue = parseInt(data[len-i].value);
+                    onoff = parseInt(data[len-i].status);
+                    if(0 < onoff)
+                        val.push({ y: photocellvalue, color: 'red' });
+                    else
+                        val.push({ y: photocellvalue, color: 'green' });
+				}
+               
+		$('#container').highcharts({
+		title: {
+			text: 'Sensor data from MySQL to Highcharts.',
+			x: -20 //center
+		},
+		subtitle: {
+			text: 'Location : '+data[0].location, //顯示地點
+			x: -20
+		},
+		xAxis: {
+			title: {
+			text: 'Time'
+			},
+			categories: time,
+			labels:{
+				enabled: false,
+			}
+			
+		},
+		yAxis: {
+			title: {
+			text: 'value'
+			}
+		},
+		series: [{
+			name: 'Sensor-Light',
+			data: val
+		}]
+	});
+	  } 
+
+	});
+
+});
+</script>
+</head>
+
+<body>
+	<div class="container">
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>
+	
+</body>
+</html>
