@@ -1,5 +1,6 @@
 $(document).ready(function() 
 {
+	
 	$.ajax({									  
 		url: 'database.php',				  
 		data:'type=0',
@@ -24,7 +25,7 @@ $(document).ready(function()
 		dataType: 'json',				//data format	  
 		success: function(data)		  //on recieve of reply
 		{	
-			console.log(data);
+			//console.log(data);
 			var time = [];
 			var shock_array = [];
 			var val = [];
@@ -63,7 +64,7 @@ $(document).ready(function()
                 	val_light.push({ y: lightvalue, color: 'yellow' });
                 }
                 count++;
-                console.log(count);     
+                //console.log(count);     
 			}
 			
 			$('#time_sound').highcharts({
@@ -156,7 +157,25 @@ $(document).ready(function()
 				}]
 				});
   		} 
+
+	});
+	$.ajax({							  
+		url: 'database.php',				  
+		data:'type=3&count='+count2,
+		dataType: 'json',				//data format	  
+		success: function(data)		  //on recieve of reply
+		{	
+			//console.log(data);
+			var temp ="";
+			if(data>=10)
+				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;GOOD</h3>";
+			else if(data>20)		
+				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;SOSO</h3>";
+			else
+				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;&nbsp;BAD</h3>";
+			$('#sleep_analyze').html(temp);
+  		} 
 	});
     });
-   
+
 });
