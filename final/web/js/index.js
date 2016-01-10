@@ -16,16 +16,17 @@ $(document).ready(function()
   		} 
 	});
 	$('#count').click(function(){
-        var count = $('#count').val(); //抓到測驗對應ID
+        var count2 = $('#count').val(); //抓到測驗對應ID
 	    //console.log(count);
 	    $.ajax({									  
 		url: 'database.php',				  
-		data:'type=1&count='+count,
+		data:'type=1&count='+count2,
 		dataType: 'json',				//data format	  
 		success: function(data)		  //on recieve of reply
 		{	
 			console.log(data);
 			var time = [];
+			var shock_array = [];
 			var val = [];
 			var val_shock = [];
 			var val_light = [];
@@ -33,6 +34,7 @@ $(document).ready(function()
 			for (var i = 0; i <data.length; i++) 
 			{
 				time.push(data[i][5]);
+				shock_array.push(data[i][2]);
                 soundvalue = parseInt(data[i][1]);
                 //shockvalue = parseInt(data[i][2]);
                 if(data[i][2]>0)

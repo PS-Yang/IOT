@@ -3,8 +3,8 @@
 
   //user information 
   $host = "127.0.0.1";
-  $user = "user";
-  $pass = "pass";
+  $user = "root";
+  $pass = "123456";
   //database information
   $dbName  = "iot_final";
   $tbdata  = "final";
@@ -25,8 +25,8 @@
     case '1':
       $count=$_GET['count'];
       if($count==3)
-        //$result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count  LIMIT 1000");
-        $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count and shock>0");
+        $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count  LIMIT 1000");
+       // $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count and shock>0");
       else
         $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count");
       break;
