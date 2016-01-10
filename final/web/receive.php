@@ -4,8 +4,8 @@
 
   //user information
   $host = "127.0.0.1";
-  $user = "user";
-  $pass = "pass";
+  $user = "root";
+  $pass = "123456";
 
   //database information
   $databaseName = "iot_final";

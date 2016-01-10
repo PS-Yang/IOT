@@ -4,12 +4,12 @@
     $location=$_GET['location'];
  
   //user information 
-  $host = "127.0.0.1";
-  $user = "user";
-  $pass = "pass";
+  $host = "140.120.13.77";
+  $user = "huan123";
+  $pass = "huan123";
   //database information
-  $dbName = "iot";
-  $table  = "iot";
+  $dbName = "lightdb";
+  $table  = "light3";
 
   //Connect to mysql database
   $con = mysqli_connect($host,$user,$pass,$dbName);
