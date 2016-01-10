@@ -1,15 +1,14 @@
 <?php
-  $action=$_GET['action'];
-  if($_GET['location']!=null)
-    $location=$_GET['location'];
- 
+  $type=$_GET['type'];
+
   //user information 
-  $host = "140.120.13.77";
-  $user = "huan123";
-  $pass = "huan123";
+  $host = "127.0.0.1";
+  $user = "user";
+  $pass = "pass";
   //database information
-  $dbName = "lightdb";
-  $table  = "light3";
+  $dbName  = "iot_final";
+  $tbdata  = "final";
+ // $tbuser  = "user";
 
   //Connect to mysql database
   $con = mysqli_connect($host,$user,$pass,$dbName);
@@ -18,16 +17,24 @@
   //設定成UTF8
   mysqli_set_charset($con,"UTF8");
   //Query command
-  if($action==='location') 
+  switch ($type) 
   {
-    $result = mysqli_query($con,"SELECT distinct location FROM $table");
+    case '0':
+      $result = mysqli_query($con,"SELECT distinct count FROM $tbdata");
+      break;
+    case '1':
+      $count=$_GET['count'];
+      if($count==3)
+        //$result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count  LIMIT 1000");
+        $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count and shock>0");
+      else
+        $result = mysqli_query($con,"SELECT * FROM $tbdata where count=$count");
+      break;
+    default:
+      //$result = mysqli_query($con,"SELECT * FROM $table where location='$location'");
+      break;
   }
-  else
-  {
-    $result = mysqli_query($con,"SELECT * FROM $table where location='$location'");
-  }
-  
-
+ 
   //store data to matrix
   $i=0; //MYSQLI_BOTH
   while ($row = mysqli_fetch_array($result))
@@ -35,10 +42,7 @@
     $temp[$i]=$row;
     $i++;
   }
-
   //echo result as json 
   echo json_encode($temp);
-  //var_dump(json_decode(json_encode($temp)));
-
   mysqli_close($con);
 ?>

@@ -4,8 +4,8 @@
 
   //user information
   $host = "127.0.0.1";
-  $user = "root";
-  $pass = "123456";
+  $user = "user";
+  $pass = "pass";
 
   //database information
   $databaseName = "iot_final";
@@ -18,7 +18,7 @@
   //設定成UTF8
   mysqli_set_charset($con,"UTF8");
   //Query database for data
-  $result = mysqli_query($con,"INSERT into $tableName (sound,shock,light,type) VALUES ($value)");
+  $result = mysqli_query($con,"INSERT into $tableName (sound,shock,light,type,count) VALUES ($value)");
   //store matrix
   if($result==1)
     echo "success";
