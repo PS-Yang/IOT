@@ -167,9 +167,9 @@ $(document).ready(function()
 		{	
 			//console.log(data);
 			var temp ="";
-			if(data>=10)
+			if(data<=10)
 				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;GOOD</h3>";
-			else if(data>20)		
+			else if(data<20)		
 				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;SOSO</h3>";
 			else
 				temp="<h3> Rate: &nbsp;"+data+" &nbsp;&nbsp;&nbsp;BAD</h3>";
