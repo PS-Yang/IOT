@@ -105,7 +105,7 @@ public class IOTfinal implements SerialPortEventListener {
 	           // System.out.println("SQL Connection to database established!");
 	            
 				String inputLine=input.readLine();
-				String sql="INSERT INTO "+table+" (sound,shock,light,type) VALUES ("+inputLine+")";
+				String sql="INSERT INTO "+table+" (sound,shock,light,type,count) VALUES ("+inputLine+")";
 				System.out.println(sql);
 				//°õ¦æquery
 	            statement = connection.createStatement();

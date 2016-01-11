@@ -12,12 +12,13 @@ int shock = 0;
 int light = 0;
 int count = 0;
 char type = 'O'; //-127~127
+int day = 8;
 
 //connect
-String SID = "WIFIID";
-String PWD = "WIFIPASSWORD";
-String IP = "serverip";
-String file = "serverpath";
+String SID = "NAME";//WIFI NAME
+String PWD = "PASSWORD";//WIFI PASSWORD
+String IP = "IP";
+String file = "PATH";
 
 String str = ""; //http 回覆狀態
 
@@ -125,7 +126,7 @@ void uploadData()
   }
   // prepare GET string
   String getStr = "GET /"+file+"?value=";
-  getStr += String(sound)+","+String(shock)+","+String(light)+",'"+String(type)+"'";
+  getStr += String(sound)+","+String(shock)+","+String(light)+",'"+String(type)+"',"+String(day);
   getStr +=" HTTP/1.1\r\nHost:"+IP;
   getStr += "\r\n\r\n";
 
