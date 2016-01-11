@@ -1,0 +1,40 @@
+//hw2-2
+//define
+int led = 13;
+#include <SoftwareSerial.h>
+char cmd;
+//setup
+void setup()
+{
+	pinMode(led, OUTPUT);
+	Serial.begin(9600);
+}
+//loop
+void loop()
+{
+	if( Serial.available() > 0)
+	{
+		cmd=Serial.read();
+	}
+	switch (cmd) {
+	    case 'o':
+	    case 'O':
+	    case 'S':
+	    case 's':
+	      digitalWrite(led, HIGH);	
+	      Serial.println("LED turn on!");
+	      // do something
+	      break;
+	    case 'X':
+	    case 'x':
+	    case 'E':
+	    case 'e':
+	      digitalWrite(led, LOW);
+	      Serial.println("LED turn on!");
+	      // do something
+	      break;
+	    default:
+	      Serial.println("Please input \'O\' \'o\' \'X\' \'x\'");	
+	      // do something
+	}
+}
